@@ -1,0 +1,14 @@
+streamlit
+langchain
+langchain-community
+langchain-ollama
+langchain-chroma
+chromadb
+pypdf
+python-docx
+openpyxl
+python-pptx
+Pillow
+pandas
+tabulate
+unstructured

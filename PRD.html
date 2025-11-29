@@ -1,0 +1,2387 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Product Requirements Document - Learning Companion Multimodal RAG</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 1in;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 30px;
+            page-break-before: always;
+        }
+        h1:first-of-type {
+            page-break-before: avoid;
+        }
+        h2 {
+            color: #34495e;
+            border-bottom: 2px solid #95a5a6;
+            padding-bottom: 5px;
+            margin-top: 25px;
+        }
+        h3 {
+            color: #7f8c8d;
+            margin-top: 20px;
+        }
+        h4, h5, h6 {
+            color: #95a5a6;
+            margin-top: 15px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+            page-break-inside: avoid;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+            overflow-x: auto;
+            page-break-inside: avoid;
+        }
+        pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+        blockquote {
+            border-left: 4px solid #3498db;
+            padding-left: 20px;
+            margin-left: 0;
+            font-style: italic;
+            color: #666;
+        }
+        ul, ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        li {
+            margin: 8px 0;
+        }
+        hr {
+            border: none;
+            border-top: 2px solid #ddd;
+            margin: 30px 0;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .page-break {
+            page-break-after: always;
+        }
+    </style>
+</head>
+<body>
+<h1 id="product-requirements-document-prd">Product Requirements Document (PRD)</h1>
+
+<h1 id="learning-companion-multimodal-rag">Learning Companion Multimodal RAG</h1>
+
+<p><strong>Version:</strong> 1.0<br />
+<strong>Date:</strong> November 28, 2025<br />
+<strong>Status:</strong> Active Development<br />
+<strong>Product Owner:</strong> Learning Companion Team</p>
+
+<hr />
+
+<h2 id="executive-summary">Executive Summary</h2>
+
+<p><strong>Learning Companion Multimodal RAG</strong> is a locally-hosted, privacy-focused AI-powered knowledge management and question-answering system designed for MBA students and educational institutions. The application leverages Retrieval-Augmented Generation (RAG) technology with multimodal capabilities to enable users to upload, organize, and interact with diverse educational content including documents, spreadsheets, presentations, and images.</p>
+
+<p><strong>Key Value Proposition:</strong><br />
+- 100% local deployment ensuring complete data privacy and security<br />
+- Support for multiple file formats (PDF, DOCX, PPTX, XLSX, CSV, images)<br />
+- Intelligent multimodal processing with AI-powered image description<br />
+- Organized knowledge base management with hierarchical folder structure<br />
+- Conversational AI interface for natural language queries<br />
+- Zero API costs with locally-run open-source LLMs</p>
+
+<hr />
+
+<h2 id="table-of-contents">Table of Contents</h2>
+
+<ol>
+<li><a href="#product-overview">Product Overview</a></li>
+<li><a href="#vision--goals">Vision &amp; Goals</a></li>
+<li><a href="#target-audience">Target Audience</a></li>
+<li><a href="#user-personas">User Personas</a></li>
+<li><a href="#use-cases">Use Cases</a></li>
+<li><a href="#functional-requirements">Functional Requirements</a></li>
+<li><a href="#technical-architecture">Technical Architecture</a></li>
+<li><a href="#user-interface-specifications">User Interface Specifications</a></li>
+<li><a href="#non-functional-requirements">Non-Functional Requirements</a></li>
+<li><a href="#success-metrics">Success Metrics</a></li>
+<li><a href="#future-roadmap">Future Roadmap</a></li>
+<li><a href="#appendix">Appendix</a></li>
+</ol>
+
+<hr />
+
+<h2 id="product-overview">Product Overview</h2>
+
+<h3 id="problem-statement">Problem Statement</h3>
+
+<p>MBA students and learners face several challenges in managing and extracting insights from diverse educational materials:</p>
+
+<ol>
+<li><strong>Information Overload</strong>: Students receive content in multiple formats (slides, papers, spreadsheets, diagrams) making it difficult to synthesize information</li>
+<li><strong>Privacy Concerns</strong>: Cloud-based AI tools raise concerns about sharing proprietary or sensitive educational content</li>
+<li><strong>Search Limitations</strong>: Traditional file search doesn't understand context or meaning</li>
+<li><strong>Fragmented Knowledge</strong>: Educational materials scattered across different folders and formats</li>
+<li><strong>Time Constraints</strong>: Manual review of large document collections is time-intensive</li>
+</ol>
+
+<h3 id="solution">Solution</h3>
+
+<p>Learning Companion Multimodal RAG addresses these challenges by:</p>
+
+<ul>
+<li><strong>Unified Knowledge Base</strong>: Centralized repository for all educational materials with semantic search</li>
+<li><strong>Local AI Processing</strong>: Complete data privacy with on-premise LLM inference</li>
+<li><strong>Multimodal Understanding</strong>: AI-powered processing of text, tables, and images</li>
+<li><strong>Smart Retrieval</strong>: Context-aware search that understands questions semantically</li>
+<li><strong>Conversational Interface</strong>: Natural language Q&amp;A eliminating the need for manual document review</li>
+</ul>
+
+<h3 id="product-differentiation">Product Differentiation</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Feature</th>
+  <th>Learning Companion</th>
+  <th>Cloud AI Tools</th>
+  <th>Traditional Search</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Data Privacy</strong></td>
+  <td>✅ 100% Local</td>
+  <td>❌ Cloud-based</td>
+  <td>✅ Local</td>
+</tr>
+<tr>
+  <td><strong>Multimodal Support</strong></td>
+  <td>✅ Text + Images</td>
+  <td>⚠️ Limited</td>
+  <td>❌ Text only</td>
+</tr>
+<tr>
+  <td><strong>Semantic Search</strong></td>
+  <td>✅ RAG-powered</td>
+  <td>✅ AI-powered</td>
+  <td>❌ Keyword-based</td>
+</tr>
+<tr>
+  <td><strong>Cost</strong></td>
+  <td>✅ Free (after setup)</td>
+  <td>❌ API costs</td>
+  <td>✅ Free</td>
+</tr>
+<tr>
+  <td><strong>Customization</strong></td>
+  <td>✅ Fully customizable</td>
+  <td>⚠️ Limited</td>
+  <td>⚠️ Limited</td>
+</tr>
+<tr>
+  <td><strong>Offline Access</strong></td>
+  <td>✅ Full functionality</td>
+  <td>❌ Requires internet</td>
+  <td>✅ Full functionality</td>
+</tr>
+</tbody>
+</table>
+
+<hr />
+
+<h2 id="vision-goals">Vision &amp; Goals</h2>
+
+<h3 id="product-vision">Product Vision</h3>
+
+<p><em>"To empower learners with an intelligent, privacy-preserving AI assistant that transforms fragmented educational content into an accessible, conversational knowledge base."</em></p>
+
+<h3 id="strategic-goals">Strategic Goals</h3>
+
+<ol>
+<li><strong>Privacy First</strong>: Enable students and institutions to leverage AI without compromising data security</li>
+<li><strong>Accessibility</strong>: Make advanced RAG technology accessible to non-technical users</li>
+<li><strong>Comprehensive Support</strong>: Handle all common educational file formats seamlessly</li>
+<li><strong>Scalability</strong>: Support knowledge bases from dozens to thousands of documents</li>
+<li><strong>User Empowerment</strong>: Give users complete control over their knowledge organization</li>
+</ol>
+
+<h3 id="success-criteria">Success Criteria</h3>
+
+<ul>
+<li>✅ Process and index documents with &gt;95% accuracy</li>
+<li>✅ Answer queries with &lt;5 second response time</li>
+<li>✅ Support 7 different file formats</li>
+<li>✅ Enable users to manage 1000+ documents efficiently</li>
+<li>✅ Maintain zero data leakage to external services</li>
+</ul>
+
+<hr />
+
+<h2 id="target-audience">Target Audience</h2>
+
+<h3 id="primary-audience">Primary Audience</h3>
+
+<p><strong>MBA Students &amp; Graduate Learners</strong><br />
+- Age: 22-45<br />
+- Tech proficiency: Intermediate<br />
+- Primary need: Quickly extract insights from course materials<br />
+- Pain points: Time-constrained, information overload, need for synthesis</p>
+
+<h3 id="secondary-audiences">Secondary Audiences</h3>
+
+<ol>
+<li><p><strong>Educational Institutions</strong></p>
+
+<ul>
+<li>Universities and business schools</li>
+<li>Need: Provide students with AI tools while maintaining data security</li>
+<li>Constraint: Budget limitations, privacy regulations</li>
+</ul></li>
+<li><p><strong>Corporate Trainers</strong></p>
+
+<ul>
+<li>Learning &amp; Development professionals</li>
+<li>Need: Quick access to training materials</li>
+<li>Use case: Employee onboarding, skills training</li>
+</ul></li>
+<li><p><strong>Researchers</strong></p>
+
+<ul>
+<li>Academic and industry researchers</li>
+<li>Need: Literature review and knowledge synthesis</li>
+<li>Requirement: Privacy for proprietary research</li>
+</ul></li>
+</ol>
+
+<hr />
+
+<h2 id="user-personas">User Personas</h2>
+
+<h3 id="persona-1-sarah-mba-student">Persona 1: Sarah - MBA Student</h3>
+
+<p><strong>Demographics:</strong><br />
+- Age: 28<br />
+- Role: Full-time MBA student at BPGP<br />
+- Technical skill: Intermediate<br />
+- Location: Urban university</p>
+
+<p><strong>Goals:</strong><br />
+- Efficiently study for exams across multiple courses<br />
+- Synthesize information from lectures, textbooks, and case studies<br />
+- Maintain organized study materials</p>
+
+<p><strong>Pain Points:</strong><br />
+- Overwhelmed by volume of reading materials<br />
+- Struggles to find specific information across documents<br />
+- Limited time for manual document review<br />
+- Privacy concerns with cloud AI tools</p>
+
+<p><strong>Usage Pattern:</strong><br />
+- Uploads course materials weekly<br />
+- Asks 20-30 questions per study session<br />
+- Organizes by course/module<br />
+- Peak usage during exam periods</p>
+
+<h3 id="persona-2-dr-kumar-university-professor">Persona 2: Dr. Kumar - University Professor</h3>
+
+<p><strong>Demographics:</strong><br />
+- Age: 45<br />
+- Role: MBA Program Director<br />
+- Technical skill: Advanced<br />
+- Location: Business school</p>
+
+<p><strong>Goals:</strong><br />
+- Provide students with modern learning tools<br />
+- Ensure institution data stays secure<br />
+- Enable efficient research for students<br />
+- Track learning resource utilization</p>
+
+<p><strong>Pain Points:</strong><br />
+- Budget constraints for expensive AI tools<br />
+- Data privacy compliance requirements<br />
+- Need for customization to curriculum<br />
+- Limited IT support for cloud deployments</p>
+
+<p><strong>Usage Pattern:</strong><br />
+- Deploys for entire class (50+ students)<br />
+- Pre-loads reference materials<br />
+- Monitors system performance<br />
+- Requires detailed documentation</p>
+
+<h3 id="persona-3-mark-corporate-ld-manager">Persona 3: Mark - Corporate L&amp;D Manager</h3>
+
+<p><strong>Demographics:</strong><br />
+- Age: 35<br />
+- Role: Learning &amp; Development Manager<br />
+- Technical skill: Intermediate<br />
+- Location: Large enterprise</p>
+
+<p><strong>Goals:</strong><br />
+- Efficient onboarding for new hires<br />
+- Quick access to company policies and training materials<br />
+- Reduce time-to-competency for employees<br />
+- Maintain confidentiality of proprietary content</p>
+
+<p><strong>Pain Points:</strong><br />
+- Scattered training materials across systems<br />
+- Employees struggle to find information quickly<br />
+- Compliance requirements prevent cloud AI usage<br />
+- Need for cost-effective solutions</p>
+
+<p><strong>Usage Pattern:</strong><br />
+- Uploads company handbooks, policies, training guides<br />
+- Multiple users across organization<br />
+- Queries on policies, procedures, and technical documentation<br />
+- Quarterly content updates</p>
+
+<hr />
+
+<h2 id="use-cases">Use Cases</h2>
+
+<h3 id="uc-01-upload-and-process-course-materials">UC-01: Upload and Process Course Materials</h3>
+
+<p><strong>Actor:</strong> MBA Student</p>
+
+<p><strong>Preconditions:</strong><br />
+- Application is running<br />
+- User has course materials in supported formats</p>
+
+<p><strong>Main Flow:</strong><br />
+1. User navigates to "Manage Knowledge Base" tab<br />
+2. User selects or creates target folder (e.g., "Marketing 101")<br />
+3. User chooses upload mode (single or batch)<br />
+4. User selects files from local system<br />
+5. System displays selected files for confirmation<br />
+6. User clicks "Process Files"<br />
+7. System shows progress bar with current file name<br />
+8. System processes each file:<br />
+   - Extracts text from documents<br />
+   - Generates descriptions for images<br />
+   - Structures tabular data<br />
+9. System indexes content into vector database<br />
+10. System displays success message with processing summary</p>
+
+<p><strong>Postconditions:</strong><br />
+- Files are saved in selected folder<br />
+- Content is indexed and searchable<br />
+- Files appear in sidebar explorer</p>
+
+<p><strong>Alternative Flows:</strong><br />
+- <strong>AF-01</strong>: Unsupported file type → System ignores with warning<br />
+- <strong>AF-02</strong>: Processing fails for a file → System logs error, continues with others<br />
+- <strong>AF-03</strong>: Batch upload via ZIP → System extracts and processes all files</p>
+
+<p><strong>Success Metrics:</strong><br />
+- Processing success rate &gt;95%<br />
+- Average processing time: &lt;5 seconds per file<br />
+- User can find uploaded files in explorer</p>
+
+<hr />
+
+<h3 id="uc-02-query-knowledge-base">UC-02: Query Knowledge Base</h3>
+
+<p><strong>Actor:</strong> Student/Learner</p>
+
+<p><strong>Preconditions:</strong><br />
+- Knowledge base contains indexed documents<br />
+- Application is running</p>
+
+<p><strong>Main Flow:</strong><br />
+1. User navigates to "Chat with Knowledge Base" tab<br />
+2. User types question in natural language (e.g., "What are the 4 Ps of marketing?")<br />
+3. System retrieves top 4 most relevant document chunks<br />
+4. System generates context-aware answer using LLM<br />
+5. System displays answer to user<br />
+6. System shows expandable "Source Documents" section<br />
+7. User expands sources to see:<br />
+   - Source file names<br />
+   - Relevant excerpts<br />
+   - Images (if applicable)</p>
+
+<p><strong>Postconditions:</strong><br />
+- Answer is displayed<br />
+- Conversation history is maintained in session<br />
+- Sources are available for verification</p>
+
+<p><strong>Alternative Flows:</strong><br />
+- <strong>AF-01</strong>: No relevant documents found → System responds "I don't know"<br />
+- <strong>AF-02</strong>: User asks follow-up question → System maintains context<br />
+- <strong>AF-03</strong>: Query on image content → System uses image descriptions</p>
+
+<p><strong>Success Metrics:</strong><br />
+- Answer relevance score &gt;80%<br />
+- Response time &lt;5 seconds<br />
+- Source attribution accuracy 100%</p>
+
+<hr />
+
+<h3 id="uc-03-organize-knowledge-base-with-folders">UC-03: Organize Knowledge Base with Folders</h3>
+
+<p><strong>Actor:</strong> Power User (Student/Professor)</p>
+
+<p><strong>Preconditions:</strong><br />
+- Application is running<br />
+- Knowledge base exists</p>
+
+<p><strong>Main Flow:</strong><br />
+1. User opens sidebar folder actions<br />
+2. User selects "Create Subfolder"<br />
+3. User chooses parent folder from dropdown<br />
+4. User enters new folder name (e.g., "Financial Accounting")<br />
+5. System creates folder<br />
+6. System refreshes folder explorer<br />
+7. New folder appears in hierarchy</p>
+
+<p><strong>Postconditions:</strong><br />
+- New folder is created<br />
+- Folder is available for file uploads<br />
+- Folder structure is persisted</p>
+
+<p><strong>Alternative Flows:</strong><br />
+- <strong>AF-01</strong>: Delete folder<br />
+  - User selects "Delete Folder"<br />
+  - User chooses folder to delete<br />
+  - System removes folder and contents<br />
+  - System updates explorer<br />
+- <strong>AF-02</strong>: Folder already exists → System shows warning</p>
+
+<p><strong>Success Metrics:</strong><br />
+- Folder operations complete instantly<br />
+- No data loss during folder operations</p>
+
+<hr />
+
+<h3 id="uc-04-quick-upload-during-chat">UC-04: Quick Upload During Chat</h3>
+
+<p><strong>Actor:</strong> Student</p>
+
+<p><strong>Preconditions:</strong><br />
+- User is in chat tab<br />
+- User has a new document to reference</p>
+
+<p><strong>Main Flow:</strong><br />
+1. User is actively chatting with AI<br />
+2. User realizes they need to add a new document<br />
+3. User uses "Quick Upload" feature in chat tab<br />
+4. User selects single file<br />
+5. User clicks "Add to Context"<br />
+6. System processes file immediately<br />
+7. System adds document to knowledge base<br />
+8. User continues asking questions about new content</p>
+
+<p><strong>Postconditions:</strong><br />
+- Document is indexed<br />
+- Document is immediately available for queries<br />
+- Temporary file is cleaned up</p>
+
+<p><strong>Alternative Flows:</strong><br />
+- <strong>AF-01</strong>: Processing fails → System shows error, chat continues</p>
+
+<p><strong>Success Metrics:</strong><br />
+- Quick upload completes in &lt;10 seconds<br />
+- Zero disruption to chat flow</p>
+
+<hr />
+
+<h3 id="uc-05-reset-system-and-start-fresh">UC-05: Reset System and Start Fresh</h3>
+
+<p><strong>Actor:</strong> System Administrator/Power User</p>
+
+<p><strong>Preconditions:</strong><br />
+- Application is running<br />
+- User wants to clear all data</p>
+
+<p><strong>Main Flow:</strong><br />
+1. User navigates to sidebar "System Settings"<br />
+2. User reads warning about permanent deletion<br />
+3. User checks confirmation box ("I understand this will delete ALL data permanently")<br />
+4. User clicks "Reset Everything" button<br />
+5. System displays confirmation dialog<br />
+6. User confirms deletion<br />
+7. System deletes:<br />
+   - All files in <code>knowledge_base/</code> folder<br />
+   - All vector embeddings in <code>chroma_db/</code> folder<br />
+   - All folder structures<br />
+8. System recreates empty base structure<br />
+9. System displays success message<br />
+10. User refreshes page</p>
+
+<p><strong>Postconditions:</strong><br />
+- All user data is permanently deleted<br />
+- System is restored to fresh state<br />
+- Default folders are recreated</p>
+
+<p><strong>Alternative Flows:</strong><br />
+- <strong>AF-01</strong>: User doesn't confirm → Button remains disabled<br />
+- <strong>AF-02</strong>: Deletion fails → System shows error, data preserved</p>
+
+<p><strong>Success Metrics:</strong><br />
+- 100% data deletion<br />
+- System recovers to functional state<br />
+- Clear user feedback throughout</p>
+
+<hr />
+
+<h2 id="functional-requirements">Functional Requirements</h2>
+
+<h3 id="fr-01-document-upload-processing">FR-01: Document Upload &amp; Processing</h3>
+
+<h4 id="fr-011-supported-file-formats">FR-01.1: Supported File Formats</h4>
+
+<p><strong>Priority:</strong> MUST HAVE</p>
+
+<p>The system SHALL support the following file formats:<br />
+- <strong>Documents</strong>: PDF (<code>.pdf</code>), Word (<code>.docx</code>)<br />
+- <strong>Presentations</strong>: PowerPoint (<code>.pptx</code>, <code>.ppt</code>)<br />
+- <strong>Spreadsheets</strong>: Excel (<code>.xlsx</code>), CSV (<code>.csv</code>)<br />
+- <strong>Images</strong>: JPEG (<code>.jpg</code>, <code>.jpeg</code>), PNG (<code>.png</code>), GIF (<code>.gif</code>), WebP (<code>.webp</code>)<br />
+- <strong>Archives</strong>: ZIP (<code>.zip</code>) for batch upload</p>
+
+<h4 id="fr-012-file-processing-pipeline">FR-01.2: File Processing Pipeline</h4>
+
+<p><strong>Priority:</strong> MUST HAVE</p>
+
+<p>For each file type, the system SHALL:</p>
+
+<p><strong>PDF Processing:</strong><br />
+- Extract text using PyPDFLoader<br />
+- Remove header/footer artifacts (e.g., "BPGP 2024-26 Batch")<br />
+- Preserve page numbers in metadata<br />
+- Handle scanned PDFs (best effort)</p>
+
+<p><strong>DOCX Processing:</strong><br />
+- Extract and remove headers/footers using python-docx<br />
+- Preserve document structure<br />
+- Extract text content only</p>
+
+<p><strong>PPTX/PPT Processing:</strong><br />
+- Extract slide text using UnstructuredPowerPointLoader<br />
+- Preserve slide order<br />
+- Include notes if present</p>
+
+<p><strong>XLSX/CSV Processing:</strong><br />
+- Load into pandas DataFrame<br />
+- Generate table summary with:<br />
+  - Row/column counts<br />
+  - Column names and data types<br />
+  - Numeric statistics (min, max, mean, median)<br />
+  - Sample values for text columns<br />
+- Create chunks of 50 rows with full column headers<br />
+- Include chunk statistics</p>
+
+<p><strong>Image Processing:</strong><br />
+- Use multimodal LLM (llava:7b) to generate descriptions<br />
+- Description SHALL include:<br />
+  1. Main subjects/objects<br />
+  2. Colors and visual style<br />
+  3. Text content (OCR-like)<br />
+  4. Overall purpose/context<br />
+- Store image path for display<br />
+- Create document with description as searchable content</p>
+
+<h4 id="fr-013-text-chunking">FR-01.3: Text Chunking</h4>
+
+<p><strong>Priority:</strong> MUST HAVE</p>
+
+<p>The system SHALL:<br />
+- Split documents using RecursiveCharacterTextSplitter<br />
+- Default chunk size: 1000 characters<br />
+- Default chunk overlap: 200 characters<br />
+- Preserve semantic boundaries (paragraphs, sentences)<br />
+- Images: No chunking (single chunk per image)<br />
+- Tables: Chunk every 50 rows with headers repeated</p>
+
+<h4 id="fr-014-progress-feedback">FR-01.4: Progress Feedback</h4>
+
+<p><strong>Priority:</strong> MUST HAVE</p>
+
+<p>During processing, the system SHALL:<br />
+- Display progress bar (0-100%)<br />
+- Show current file being processed<br />
+- Show count (e.g., "Processing file 3/15: filename.pdf")<br />
+- Display final summary:<br />
+  - Success count<br />
+  - Failed files with error messages<br />
+  - Ignored files (unsupported formats)</p>
+
+<h4 id="fr-015-error-handling">FR-01.5: Error Handling</h4>
+
+<p><strong>Priority:</strong> MUST HAVE</p>
+
+<p>The system SHALL:<br />
+- Continue processing remaining files if one fails<br />
+- Log all errors with file names<br />
+- Display errors to user after processing<br />
+- Never crash due to individual file failures<br />
+- Provide actionable error messages</p>
+
+<hr />
+
+<h3 id="fr-02-knowledge-base-management">FR-02: Knowledge Base Management</h3>
+
+<h4 id="fr-021-folder-structure">FR-02.1: Folder Structure</h4>
+
+<p><strong>Priority:</strong> MUST HAVE</p>
+
+<p>The system SHALL:<br />
+- Create <code>knowledge_base/</code> root directory on startup<br />
+- Create default <code>knowledge_base/Others/</code> folder<br />
+- Support unlimited nested folder levels<br />
+- Persist folder structure across sessions<br />
+- Display folder hierarchy in sidebar</p>
+
+<h4 id="fr-022-folder-operations">FR-02.2: Folder Operations</h4>
+
+<p><strong>Priority:</strong> MUST HAVE</p>
+
+<p><strong>Create Folder:</strong><br />
+- User selects parent folder (or "/" for root)<br />
+- User enters folder name<br />
+- System validates name (no special characters, not empty)<br />
+- System creates folder immediately<br />
+- System refreshes UI</p>
+
+<p><strong>Delete Folder:</strong><br />
+- User selects folder from dropdown<br />
+- System shows folder path for confirmation<br />
+- User clicks delete button<br />
+- System recursively deletes folder and all contents<br />
+- System updates UI</p>
+
+<p><strong>Folder Explorer:</strong><br />
+- Hierarchical tree view in sidebar<br />
+- Expandable/collapsible folders<br />
+- Icons for different file types:<br />
+  - 📁 Folders<br />
+  - 📕 PDF files<br />
+  - 📝 DOCX files<br />
+  - 📊 XLSX/CSV files<br />
+  - 📊 PPTX/PPT files<br />
+  - 🖼️ Image files<br />
+  - 📄 Other files<br />
+- Real-time updates</p>
+
+<h4 id="fr-023-file-selection">FR-02.3: File Selection</h4>
+
+<p><strong>Priority:</strong> MUST HAVE</p>
+
+<p>The system SHALL:<br />
+- Provide dropdown to select target folder<br />
+- Show hierarchical folder names with indent (e.g., "— 📁 Subfolder")<br />
+- Default to "Others" folder<br />
+- Persist selection during session<br />
+- Show warning before processing to confirm target folder<br />
+- Save files to selected folder on upload</p>
+
+<hr />
+
+<h3 id="fr-03-vector-database-retrieval">FR-03: Vector Database &amp; Retrieval</h3>
+
+<h4 id="fr-031-embedding-generation">FR-03.1: Embedding Generation</h4>
+
+<p><strong>Priority:</strong> MUST HAVE</p>
+
+<p>The system SHALL:<br />
+- Use Ollama embedding model: <code>nomic-embed-text</code><br />
+- Generate embeddings for all text chunks<br />
+- Store embeddings in ChromaDB<br />
+- Persist embeddings in <code>chroma_db/</code> directory<br />
+- Support incremental additions (no full rebuild needed)</p>
+
+<h4 id="fr-032-semantic-search">FR-03.2: Semantic Search</h4>
+
+<p><strong>Priority:</strong> MUST HAVE</p>
+
+<p>The system SHALL:<br />
+- Perform similarity search on query<br />
+- Retrieve k=4 most relevant chunks by default<br />
+- Use cosine similarity for ranking<br />
+- Include metadata in results (source, type, filename)<br />
+- Support queries while files are being added</p>
+
+<h4 id="fr-033-metadata-storage">FR-03.3: Metadata Storage</h4>
+
+<p><strong>Priority:</strong> MUST HAVE</p>
+
+<p>Each document chunk SHALL store:<br />
+- <code>source</code>: Full file path<br />
+- <code>filename</code>: File name only<br />
+- <code>type</code>: Document type (document, table_summary, table_chunk, image)<br />
+- <code>extension</code>: File extension<br />
+- Additional type-specific metadata:<br />
+  - <strong>Tables</strong>: columns, row_count, column_count, chunk_index
+  - *<em>Images</em>*: None (path is sufficient)</p>
+
+<hr />
+
+<h3 id="fr-04-conversational-ai-interface">FR-04: Conversational AI Interface</h3>
+
+<h4 id="fr-041-question-answering">FR-04.1: Question Answering</h4>
+
+<p><strong>Priority:</strong> MUST HAVE</p>
+
+<p>The system SHALL:<br />
+- Accept natural language questions via chat input<br />
+- Retrieve relevant document chunks (k=4)<br />
+- Format context from chunks<br />
+- Generate answer using local LLM (llama3.2:1b)<br />
+- Use prompt template:<br />
+  <pre><code>You're an MBA Knowledge Base. Use the following pieces of context to answer 
+the question at the end to the students. If you don't know the answer, 
+just say that you don't know, don't try to make up an answer. 
+Use three sentences maximum and keep the answer concise.
+
+Context: {context}
+
+Question: {question}
+
+Helpful Answer:<br />
+  </code></pre><br />
+- Display answer in chat message<br />
+- Maintain conversation history in session<br />
+- Support follow-up questions</p>
+
+<h4 id="fr-042-source-attribution">FR-04.2: Source Attribution</h4>
+
+<p><strong>Priority:</strong> MUST HAVE</p>
+
+<p>For each answer, the system SHALL:<br />
+- Display expandable "📚 Source Documents" section<br />
+- Show for each source:<br />
+  - Source number (Source 1, Source 2, etc.)<br />
+  - File name (basename only)<br />
+  - Document type (e.g., "image", "table_chunk", "document")<br />
+  - Content preview (first 300 characters)<br />
+  - Full image display (if type is "image")<br />
+- Support up to 4 sources per answer</p>
+
+<h4 id="fr-043-chat-history">FR-04.3: Chat History</h4>
+
+<p><strong>Priority:</strong> MUST HAVE</p>
+
+<p>The system SHALL:<br />
+- Maintain chat history in <code>st.session_state.messages</code><br />
+- Display all messages in chat interface<br />
+- Support unlimited message history per session<br />
+- Clear history on page refresh<br />
+- Indicate user vs. assistant messages with icons</p>
+
+<h4 id="fr-044-quick-upload-in-chat">FR-04.4: Quick Upload in Chat</h4>
+
+<p><strong>Priority:</strong> SHOULD HAVE</p>
+
+<p>The system SHALL:<br />
+- Provide file uploader in chat tab<br />
+- Support single file upload only<br />
+- Process file immediately<br />
+- Add to knowledge base<br />
+- Show success confirmation<br />
+- Clean up temporary files<br />
+- Enable immediate querying of newly uploaded file</p>
+
+<hr />
+
+<h3 id="fr-05-system-management">FR-05: System Management</h3>
+
+<h4 id="fr-051-reset-functionality">FR-05.1: Reset Functionality</h4>
+
+<p><strong>Priority:</strong> MUST HAVE</p>
+
+<p>The system SHALL:<br />
+- Provide "Reset Everything" button in sidebar<br />
+- Require explicit user confirmation via checkbox<br />
+- Display danger warning in red/orange<br />
+- Delete on confirmation:<br />
+  - <code>knowledge_base/</code> folder and all contents<br />
+  - <code>chroma_db/</code> folder and all contents<br />
+- Recreate empty folder structure:<br />
+  - <code>knowledge_base/</code><br />
+  - <code>knowledge_base/Others/</code><br />
+- Show clear success/error messages<br />
+- Suggest page refresh after reset</p>
+
+<h4 id="fr-052-configuration">FR-05.2: Configuration</h4>
+
+<p><strong>Priority:</strong> SHOULD HAVE</p>
+
+<p>The system SHALL support configuration via <code>rag_core.py</code>:<br />
+- LLM model selection<br />
+  - <code>MODEL_NAME</code>: Text generation model (default: llama3.2:1b)<br />
+  - <code>MULTIMODAL_MODEL</code>: Image processing model (default: llava:7b)<br />
+  - <code>EMBEDDING_MODEL</code>: Embedding model (default: nomic-embed-text)<br />
+- Chunking parameters<br />
+  - <code>chunk_size</code>: Max characters per chunk (default: 1000)<br />
+  - <code>chunk_overlap</code>: Overlap between chunks (default: 200)<br />
+- Retrieval parameters<br />
+  - <code>k</code>: Number of chunks to retrieve (default: 4)</p>
+
+<h4 id="fr-053-port-configuration">FR-05.3: Port Configuration</h4>
+
+<p><strong>Priority:</strong> SHOULD HAVE</p>
+
+<p>The system SHALL:<br />
+- Support custom port via command-line flag<br />
+- Default to port 8501 (Streamlit default)<br />
+- Example: <code>streamlit run app.py --server.port 8055</code></p>
+
+<hr />
+
+<h3 id="fr-06-user-interface">FR-06: User Interface</h3>
+
+<h4 id="fr-061-layout">FR-06.1: Layout</h4>
+
+<p><strong>Priority:</strong> MUST HAVE</p>
+
+<p>The system SHALL:<br />
+- Use Streamlit wide layout<br />
+- Provide persistent sidebar for navigation and settings<br />
+- Implement two main tabs:<br />
+  1. "Manage Knowledge Base" (Upload &amp; organize)<br />
+  2. "Chat with Knowledge Base" (Query &amp; interact)</p>
+
+<h4 id="fr-062-visual-feedback">FR-06.2: Visual Feedback</h4>
+
+<p><strong>Priority:</strong> MUST HAVE</p>
+
+<p>The system SHALL provide:<br />
+- Progress indicators for long operations<br />
+- Success messages (green)<br />
+- Warning messages (yellow/orange)<br />
+- Error messages (red)<br />
+- Info messages (blue)<br />
+- Loading spinners during processing<br />
+- Clear button states (enabled/disabled)</p>
+
+<h4 id="fr-063-responsive-design">FR-06.3: Responsive Design</h4>
+
+<p><strong>Priority:</strong> SHOULD HAVE</p>
+
+<p>The system SHALL:<br />
+- Support desktop browsers (Chrome, Firefox, Edge, Safari)<br />
+- Support minimum resolution: 1280x720<br />
+- Adapt to browser window resizing<br />
+- Provide scrollable content areas</p>
+
+<hr />
+
+<h2 id="technical-architecture">Technical Architecture</h2>
+
+<h3 id="architecture-overview">Architecture Overview</h3>
+
+<pre><code>graph TB
+    subgraph "User Interface Layer"
+        UI[Streamlit Web App&lt;br/&gt;app.py]
+        Tab1[Tab 1: Manage KB]
+        Tab2[Tab 2: Chat]
+        Sidebar[Sidebar: Navigation]
+        UI --&gt; Tab1
+        UI --&gt; Tab2
+        UI --&gt; Sidebar
+    end
+
+    subgraph "Application Layer"
+        Core[RAG Core&lt;br/&gt;rag_core.py]
+        ImgProc[Image Processing&lt;br/&gt;image_processing.py]
+        TblProc[Table Processing&lt;br/&gt;table_processing.py]
+    end
+
+    subgraph "AI/ML Layer"
+        Ollama[Ollama Runtime]
+        LLM1[llama3.2:1b&lt;br/&gt;Text Generation]
+        LLM2[llava:7b&lt;br/&gt;Vision Model]
+        Embed[nomic-embed-text&lt;br/&gt;Embeddings]
+        Ollama --&gt; LLM1
+        Ollama --&gt; LLM2
+        Ollama --&gt; Embed
+    end
+
+    subgraph "Data Layer"
+        VectorDB[(ChromaDB&lt;br/&gt;Vector Store)]
+        FileSystem[(Knowledge Base&lt;br/&gt;File Storage)]
+    end
+
+    subgraph "External Libraries"
+        LC[LangChain]
+        Loaders[Document Loaders&lt;br/&gt;PyPDF, Docx2txt, etc.]
+        PIL[Pillow&lt;br/&gt;Image Processing]
+        Pandas[Pandas&lt;br/&gt;Data Processing]
+    end
+
+    Tab1 --&gt; Core
+    Tab2 --&gt; Core
+    Core --&gt; ImgProc
+    Core --&gt; TblProc
+    Core --&gt; LC
+    ImgProc --&gt; Ollama
+    TblProc --&gt; Pandas
+    LC --&gt; Loaders
+    LC --&gt; VectorDB
+    LC --&gt; Ollama
+    Core --&gt; FileSystem
+    ImgProc --&gt; PIL
+</code></pre>
+
+<h3 id="technology-stack">Technology Stack</h3>
+
+<h4 id="frontend">Frontend</h4>
+
+<ul>
+<li><strong>Framework</strong>: Streamlit 1.x</li>
+<li><strong>Language</strong>: Python 3.9+</li>
+<li><strong>UI Components</strong>: Native Streamlit widgets</li>
+</ul>
+
+<h4 id="backend">Backend</h4>
+
+<ul>
+<li><strong>Framework</strong>: LangChain (latest)</li>
+<li><strong>Language</strong>: Python 3.9+</li>
+<li><strong>Core Modules</strong>:
+<ul>
+<li><code>app.py</code>: Main application and UI logic</li>
+<li><code>rag_core.py</code>: RAG pipeline, document processing, query handling</li>
+<li><code>image_processing.py</code>: Multimodal image processing</li>
+<li><code>table_processing.py</code>: Structured data processing</li>
+</ul></li>
+</ul>
+
+<h4 id="aiml-infrastructure">AI/ML Infrastructure</h4>
+
+<ul>
+<li><strong>LLM Runtime</strong>: Ollama (local inference server)</li>
+<li><strong>Text Generation</strong>: Llama 3.2 1B (~1.3GB)</li>
+<li><strong>Vision Model</strong>: LLaVA 7B (~4.7GB)</li>
+<li><strong>Embeddings</strong>: Nomic Embed Text (~274MB)</li>
+<li><strong>Orchestration</strong>: LangChain Expression Language (LCEL)</li>
+</ul>
+
+<h4 id="data-storage">Data Storage</h4>
+
+<ul>
+<li><strong>Vector Database</strong>: ChromaDB (persistent local storage)</li>
+<li><strong>File Storage</strong>: Local file system (<code>knowledge_base/</code> directory)</li>
+<li><strong>Persistence</strong>: <code>chroma_db/</code> for embeddings</li>
+</ul>
+
+<h4 id="document-processing">Document Processing</h4>
+
+<ul>
+<li><strong>PDF</strong>: PyPDF, pypdf</li>
+<li><strong>Word</strong>: python-docx, Docx2txtLoader</li>
+<li><strong>PowerPoint</strong>: python-pptx, UnstructuredPowerPointLoader</li>
+<li><strong>Excel</strong>: openpyxl, pandas, UnstructuredExcelLoader</li>
+<li><strong>CSV</strong>: pandas, CSVLoader</li>
+<li><strong>Images</strong>: Pillow (PIL)</li>
+</ul>
+
+<h4 id="supporting-libraries">Supporting Libraries</h4>
+
+<ul>
+<li><strong>Data Processing</strong>: pandas, tabulate</li>
+<li><strong>Text Splitting</strong>: LangChain RecursiveCharacterTextSplitter</li>
+<li><strong>Embeddings</strong>: LangChain Ollama Embeddings</li>
+<li><strong>Prompting</strong>: LangChain PromptTemplate</li>
+</ul>
+
+<h3 id="system-requirements">System Requirements</h3>
+
+<h4 id="minimum-requirements">Minimum Requirements</h4>
+
+<ul>
+<li><strong>OS</strong>: Windows 10/11, macOS, Linux</li>
+<li><strong>CPU</strong>: 4 cores, 2.0 GHz</li>
+<li><strong>RAM</strong>: 8 GB</li>
+<li><strong>Storage</strong>: 10 GB free space</li>
+<li><strong>Python</strong>: 3.9 or higher</li>
+<li><strong>Ollama</strong>: Latest version</li>
+<li><strong>GPU</strong>: Optional (improves performance)</li>
+</ul>
+
+<h4 id="recommended-requirements">Recommended Requirements</h4>
+
+<ul>
+<li><strong>OS</strong>: Windows 11, macOS 12+, Ubuntu 22.04+</li>
+<li><strong>CPU</strong>: 8 cores, 3.0 GHz</li>
+<li><strong>RAM</strong>: 16 GB or more</li>
+<li><strong>Storage</strong>: 50 GB SSD</li>
+<li><strong>Python</strong>: 3.10+</li>
+<li><strong>Ollama</strong>: Latest version</li>
+<li><strong>GPU</strong>: NVIDIA GPU with 6GB+ VRAM (for faster inference)</li>
+</ul>
+
+<h3 id="data-flow">Data Flow</h3>
+
+<h4 id="upload-flow">Upload Flow</h4>
+
+<pre><code>sequenceDiagram
+    participant User
+    participant UI as Streamlit UI
+    participant Core as RAG Core
+    participant Proc as File Processors
+    participant LLM as Ollama LLM
+    participant VDB as ChromaDB
+    participant FS as File System
+
+    User-&gt;&gt;UI: Upload file(s)
+    UI-&gt;&gt;UI: Select target folder
+    User-&gt;&gt;UI: Click "Process Files"
+    UI-&gt;&gt;FS: Save files to folder
+    UI-&gt;&gt;Core: load_and_split_documents()
+
+    loop For each file
+        Core-&gt;&gt;Proc: load_file(path)
+        alt Is Image
+            Proc-&gt;&gt;LLM: generate_image_description()
+            LLM--&gt;&gt;Proc: Description text
+        else Is Table
+            Proc-&gt;&gt;Proc: Generate table summary
+            Proc-&gt;&gt;Proc: Chunk rows
+        else Is Document
+            Proc-&gt;&gt;Proc: Extract text
+            Proc-&gt;&gt;Proc: Clean content
+        end
+        Proc--&gt;&gt;Core: Document objects
+        Core-&gt;&gt;Core: Split into chunks
+    end
+
+    Core-&gt;&gt;VDB: index_documents(chunks)
+    VDB-&gt;&gt;VDB: Generate embeddings
+    VDB-&gt;&gt;VDB: Store vectors
+    Core--&gt;&gt;UI: Processing result
+    UI--&gt;&gt;User: Show success/errors
+</code></pre>
+
+<h4 id="query-flow">Query Flow</h4>
+
+<pre><code>sequenceDiagram
+    participant User
+    participant UI as Streamlit UI
+    participant Core as RAG Core
+    participant VDB as ChromaDB
+    participant LLM as Ollama LLM
+
+    User-&gt;&gt;UI: Enter question
+    UI-&gt;&gt;Core: query_rag(question)
+    Core-&gt;&gt;VDB: similarity_search(question, k=4)
+    VDB-&gt;&gt;VDB: Generate query embedding
+    VDB-&gt;&gt;VDB: Find top-k similar chunks
+    VDB--&gt;&gt;Core: Retrieved documents
+    Core-&gt;&gt;Core: Format context from docs
+    Core-&gt;&gt;LLM: Generate answer with context
+    LLM--&gt;&gt;Core: Answer text
+    Core--&gt;&gt;UI: Answer + source docs
+    UI-&gt;&gt;UI: Display answer
+    UI-&gt;&gt;UI: Show sources (expandable)
+    UI--&gt;&gt;User: Show response
+</code></pre>
+
+<h3 id="security-considerations">Security Considerations</h3>
+
+<h4 id="data-privacy">Data Privacy</h4>
+
+<ul>
+<li>✅ <strong>100% Local Processing</strong>: No data leaves local machine</li>
+<li>✅ <strong>No API Calls</strong>: All LLM inference is local</li>
+<li>✅ <strong>No Telemetry</strong>: No usage tracking or analytics</li>
+<li>✅ <strong>File Isolation</strong>: Knowledge base contained in designated folder</li>
+</ul>
+
+<h4 id="access-control">Access Control</h4>
+
+<ul>
+<li>⚠️ <strong>Single User</strong>: No authentication system (designed for personal use)</li>
+<li>⚠️ <strong>Localhost Only</strong>: Default Streamlit config restricts to 127.0.0.1</li>
+<li>⚠️ <strong>No Encryption</strong>: Files stored unencrypted on disk</li>
+</ul>
+
+<blockquote>
+  <p>[!WARNING]<br />
+  The current version is designed for personal, local use. For multi-user deployments, consider adding:<br />
+  - User authentication<br />
+  - File encryption at rest<br />
+  - Network security (HTTPS, firewall rules)<br />
+  - Access control lists (ACLs)</p>
+</blockquote>
+
+<h4 id="input-validation">Input Validation</h4>
+
+<ul>
+<li>✅ File type validation (extension-based)</li>
+<li>✅ Error handling for corrupted files</li>
+<li>✅ Folder name sanitization</li>
+<li>⚠️ No file size limits (could allow DoS via large files)</li>
+</ul>
+
+<h3 id="scalability-considerations">Scalability Considerations</h3>
+
+<h4 id="current-limitations">Current Limitations</h4>
+
+<ul>
+<li><strong>Vector DB Size</strong>: ChromaDB performs well up to ~100K chunks</li>
+<li><strong>LLM Context Window</strong>: Limited by model (typically 2048-4096 tokens)</li>
+<li><strong>Memory</strong>: Image processing model (LLaVA) requires ~8GB RAM</li>
+<li><strong>Concurrent Users</strong>: Streamlit designed for 1-10 concurrent users</li>
+</ul>
+
+<h4 id="scaling-strategies">Scaling Strategies</h4>
+
+<ol>
+<li><strong>Horizontal Scaling</strong>: Deploy multiple instances per user</li>
+<li><strong>Model Optimization</strong>: Use smaller models for lower memory footprint</li>
+<li><strong>Batch Processing</strong>: Process uploads asynchronously</li>
+<li><strong>Database Sharding</strong>: Split knowledge base by topic/course</li>
+</ol>
+
+<hr />
+
+<h2 id="user-interface-specifications">User Interface Specifications</h2>
+
+<h3 id="color-scheme-styling">Color Scheme &amp; Styling</h3>
+
+<p>The application uses Streamlit's default theme with semantic colors:<br />
+- <strong>Success</strong>: Green (#00C851)<br />
+- <strong>Warning</strong>: Orange/Yellow (#FFBB33)<br />
+- <strong>Error</strong>: Red (#FF4444)<br />
+- <strong>Info</strong>: Blue (#33B5E5)<br />
+- <strong>Primary</strong>: Streamlit blue</p>
+
+<h3 id="layout-specifications">Layout Specifications</h3>
+
+<h4 id="overall-layout">Overall Layout</h4>
+
+<pre><code>┌─────────────────────────────────────────────────────┐
+│  Local Multimodal RAG Assistant       [Page Title]  │
+├──────────────┬──────────────────────────────────────┤
+│              │  [Tab 1: Manage KB] [Tab 2: Chat]    │
+│  Sidebar     │                                       │
+│  ┌─────────┐│  ┌──────────────────────────────────┐│
+│  │KB Tree  ││  │                                  ││
+│  │Explorer ││  │                                  ││
+│  │         ││  │      Active Tab Content          ││
+│  │         ││  │                                  ││
+│  └─────────┘│  │                                  ││
+│  ┌─────────┐│  └──────────────────────────────────┘│
+│  │Folder   ││                                       │
+│  │Selector ││                                       │
+│  └─────────┘│                                       │
+│  ┌─────────┐│                                       │
+│  │System   ││                                       │
+│  │Settings ││                                       │
+│  └─────────┘│                                       │
+└──────────────┴──────────────────────────────────────┘
+</code></pre>
+
+<h3 id="sidebar-components">Sidebar Components</h3>
+
+<h4 id="1-folder-actions-expandable">1. Folder Actions (Expandable)</h4>
+
+<pre><code>┌────────────────────────┐
+│ ▼ Folder Actions       │
+├────────────────────────┤
+│ ○ Create Subfolder     │
+│ ○ Delete Folder        │
+│                        │
+│ [Create/Delete UI]     │
+└────────────────────────┘
+</code></pre>
+
+<h4 id="2-knowledge-base-explorer">2. Knowledge Base Explorer</h4>
+
+<pre><code>┌────────────────────────┐
+│ Explorer               │
+├────────────────────────┤
+│ ▼ 📁 Marketing         │
+│   📕 Textbook.pdf      │
+│   📊 Cases.xlsx        │
+│ ▼ 📁 Finance           │
+│   ▶ 📁 Module 1        │
+│   📝 Notes.docx        │
+│ ▼ 📁 Others            │
+│   📄 (empty)           │
+└────────────────────────┘
+</code></pre>
+
+<h4 id="3-target-folder-selector">3. Target Folder Selector</h4>
+
+<pre><code>┌────────────────────────┐
+│ Select Target Folder   │
+│ ┌────────────────────┐ │
+│ │📁 Marketing        ▼│ │
+│ └────────────────────┘ │
+└────────────────────────┘
+</code></pre>
+
+<h4 id="4-system-settings">4. System Settings</h4>
+
+<pre><code>┌────────────────────────┐
+│ ⚙️ System Settings     │
+├────────────────────────┤
+│ ⚠️ DANGER ZONE         │
+│ ┌────────────────────┐ │
+│ │☐ I understand...  │ │
+│ └────────────────────┘ │
+│ [🗑️ Reset Everything]  │
+└────────────────────────┘
+</code></pre>
+
+<h3 id="tab-1-manage-knowledge-base">Tab 1: Manage Knowledge Base</h3>
+
+<pre><code>┌─────────────────────────────────────────────┐
+│ Upload to Knowledge Base                    │
+├─────────────────────────────────────────────┤
+│ ℹ️ Target Folder: Marketing (Change in     │
+│    Sidebar)                                 │
+│                                             │
+│ Upload Mode:                                │
+│ ○ Single File Upload  ● Batch File Upload  │
+│                                             │
+│ ┌─────────────────────────────────────────┐ │
+│ │ Choose files (Batch/ZIP Upload)         │ │
+│ │ [Browse files...]                       │ │
+│ │                                         │ │
+│ │ Selected: 3 files                       │ │
+│ │  - lecture1.pdf                         │ │
+│ │  - case_study.docx                      │ │
+│ │  - data.xlsx                            │ │
+│ └─────────────────────────────────────────┘ │
+│                                             │
+│ ───────────────────────────────────────────  │
+│                                             │
+│ ⚠️ Verify Target Folder: Files will be     │
+│    saved to Marketing. Change it in the    │
+│    sidebar if needed before processing.    │
+│                                             │
+│         [  Process Files  ]                 │
+│                                             │
+│ [Progress bar: 45%]                         │
+│ Processing file 2/3: case_study.docx        │
+└─────────────────────────────────────────────┘
+</code></pre>
+
+<h3 id="tab-2-chat-with-knowledge-base">Tab 2: Chat with Knowledge Base</h3>
+
+<pre><code>┌─────────────────────────────────────────────┐
+│ Chat                                        │
+├─────────────────────────────────────────────┤
+│ Quick Upload (Single File)                  │
+│ ┌─────────────────────────────────────────┐ │
+│ │ Upload a file to add to context         │ │
+│ │ [Browse files...]                       │ │
+│ └─────────────────────────────────────────┘ │
+│ [  Add to Context  ]                        │
+│                                             │
+│ ─────────────────────────────────────────── │
+│                                             │
+│ ┌─────────────────────────────────────────┐ │
+│ │ 👤 User                                 │ │
+│ │ What are the 4 Ps of marketing?         │ │
+│ │                                         │ │
+│ │ 🤖 Assistant                            │ │
+│ │ The 4 Ps of marketing are Product,     │ │
+│ │ Price, Place, and Promotion. These     │ │
+│ │ elements form the marketing mix.        │ │
+│ │                                         │ │
+│ │ ▼ 📚 Source Documents                   │ │
+│ │   Source 1: marketing_textbook.pdf      │ │
+│ │   Type: document                        │ │
+│ │   Content: The marketing mix consists  │ │
+│ │   of four key elements known as the... │ │
+│ └─────────────────────────────────────────┘ │
+│                                             │
+│ ┌─────────────────────────────────────────┐ │
+│ │ Ask a question about your documents...  │ │
+│ └─────────────────────────────────────────┘ │
+└─────────────────────────────────────────────┘
+</code></pre>
+
+<h3 id="visual-states">Visual States</h3>
+
+<h4 id="loading-state">Loading State</h4>
+
+<pre><code>┌─────────────────────────────┐
+│ ⏳ Thinking...              │
+│ [Spinner animation]         │
+└─────────────────────────────┘
+</code></pre>
+
+<h4 id="success-state">Success State</h4>
+
+<pre><code>┌─────────────────────────────┐
+│ ✅ Successfully processed   │
+│    3 files.                 │
+└─────────────────────────────┘
+</code></pre>
+
+<h4 id="error-state">Error State</h4>
+
+<pre><code>┌─────────────────────────────┐
+│ ❌ Error: Failed to process │
+│    file.pdf: Invalid format │
+└─────────────────────────────┘
+</code></pre>
+
+<h4 id="warning-state">Warning State</h4>
+
+<pre><code>┌─────────────────────────────┐
+│ ⚠️ Verify Target Folder:    │
+│    Files will be saved to   │
+│    Marketing.               │
+└─────────────────────────────┘
+</code></pre>
+
+<h3 id="interaction-patterns">Interaction Patterns</h3>
+
+<h4 id="file-upload">File Upload</h4>
+
+<ol>
+<li>User clicks "Browse files"</li>
+<li>System shows file picker dialog</li>
+<li>User selects file(s)</li>
+<li>File names appear in upload area</li>
+<li>User can review selection</li>
+<li>User clicks "Process Files"</li>
+<li>Progress indicator animates</li>
+<li>Success/error message appears</li>
+</ol>
+
+<h4 id="folder-creation">Folder Creation</h4>
+
+<ol>
+<li>User expands "Folder Actions"</li>
+<li>User selects "Create Subfolder"</li>
+<li>User chooses parent from dropdown</li>
+<li>User types folder name</li>
+<li>User clicks "Create Folder"</li>
+<li>Folder appears in explorer immediately</li>
+<li>Success message confirms</li>
+</ol>
+
+<h4 id="chat-interaction">Chat Interaction</h4>
+
+<ol>
+<li>User types question in input</li>
+<li>User presses Enter</li>
+<li>Message appears in chat (user bubble)</li>
+<li>Loading spinner shows</li>
+<li>Assistant response streams in</li>
+<li>Sources section appears (collapsed)</li>
+<li>User can expand sources to view</li>
+</ol>
+
+<hr />
+
+<h2 id="non-functional-requirements">Non-Functional Requirements</h2>
+
+<h3 id="nfr-01-performance">NFR-01: Performance</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Metric</th>
+  <th>Target</th>
+  <th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Document Processing</strong></td>
+  <td>&lt;5 sec per file (avg)</td>
+  <td>MUST HAVE</td>
+</tr>
+<tr>
+  <td><strong>Query Response Time</strong></td>
+  <td>&lt;5 sec end-to-end</td>
+  <td>MUST HAVE</td>
+</tr>
+<tr>
+  <td><strong>File Upload</strong></td>
+  <td>&lt;2 sec for save</td>
+  <td>MUST HAVE</td>
+</tr>
+<tr>
+  <td><strong>Folder Operations</strong></td>
+  <td>&lt;1 sec</td>
+  <td>MUST HAVE</td>
+</tr>
+<tr>
+  <td><strong>UI Responsiveness</strong></td>
+  <td>&lt;200ms for interactions</td>
+  <td>SHOULD HAVE</td>
+</tr>
+<tr>
+  <td><strong>Initial Load Time</strong></td>
+  <td>&lt;3 sec</td>
+  <td>SHOULD HAVE</td>
+</tr>
+<tr>
+  <td><strong>Image Description</strong></td>
+  <td>&lt;15 sec per image</td>
+  <td>SHOULD HAVE</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="nfr-02-reliability">NFR-02: Reliability</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Requirement</th>
+  <th>Description</th>
+  <th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Uptime</strong></td>
+  <td>99% uptime during user sessions</td>
+  <td>MUST HAVE</td>
+</tr>
+<tr>
+  <td><strong>Data Persistence</strong></td>
+  <td>Vector DB and files persist across restarts</td>
+  <td>MUST HAVE</td>
+</tr>
+<tr>
+  <td><strong>Error Recovery</strong></td>
+  <td>Graceful degradation on file processing failures</td>
+  <td>MUST HAVE</td>
+</tr>
+<tr>
+  <td><strong>Session Stability</strong></td>
+  <td>Chat history maintained throughout session</td>
+  <td>MUST HAVE</td>
+</tr>
+<tr>
+  <td><strong>Crash Recovery</strong></td>
+  <td>Application restarts cleanly after crash</td>
+  <td>SHOULD HAVE</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="nfr-03-usability">NFR-03: Usability</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Requirement</th>
+  <th>Description</th>
+  <th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Learning Curve</strong></td>
+  <td>New users productive within 10 minutes</td>
+  <td>MUST HAVE</td>
+</tr>
+<tr>
+  <td><strong>Documentation</strong></td>
+  <td>Complete deployment guide provided</td>
+  <td>MUST HAVE</td>
+</tr>
+<tr>
+  <td><strong>Error Messages</strong></td>
+  <td>Clear, actionable error messages</td>
+  <td>MUST HAVE</td>
+</tr>
+<tr>
+  <td><strong>Visual Feedback</strong></td>
+  <td>All actions provide immediate feedback</td>
+  <td>MUST HAVE</td>
+</tr>
+<tr>
+  <td><strong>Accessibility</strong></td>
+  <td>Keyboard navigation support</td>
+  <td>SHOULD HAVE</td>
+</tr>
+<tr>
+  <td><strong>Help Text</strong></td>
+  <td>Tooltips and info messages throughout</td>
+  <td>SHOULD HAVE</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="nfr-04-maintainability">NFR-04: Maintainability</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Requirement</th>
+  <th>Description</th>
+  <th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Code Quality</strong></td>
+  <td>Modular architecture with separation of concerns</td>
+  <td>MUST HAVE</td>
+</tr>
+<tr>
+  <td><strong>Documentation</strong></td>
+  <td>Inline comments for complex logic</td>
+  <td>MUST HAVE</td>
+</tr>
+<tr>
+  <td><strong>Testing</strong></td>
+  <td>Unit tests for core functions</td>
+  <td>SHOULD HAVE</td>
+</tr>
+<tr>
+  <td><strong>Configuration</strong></td>
+  <td>Easy model/parameter changes via constants</td>
+  <td>MUST HAVE</td>
+</tr>
+<tr>
+  <td><strong>Logging</strong></td>
+  <td>Error logging for debugging</td>
+  <td>SHOULD HAVE</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="nfr-05-portability">NFR-05: Portability</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Requirement</th>
+  <th>Description</th>
+  <th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>OS Support</strong></td>
+  <td>Windows, macOS, Linux</td>
+  <td>MUST HAVE</td>
+</tr>
+<tr>
+  <td><strong>Python Version</strong></td>
+  <td>Python 3.9+</td>
+  <td>MUST HAVE</td>
+</tr>
+<tr>
+  <td><strong>Dependencies</strong></td>
+  <td>All dependencies in requirements.txt</td>
+  <td>MUST HAVE</td>
+</tr>
+<tr>
+  <td><strong>Deployment</strong></td>
+  <td>Single command to start application</td>
+  <td>MUST HAVE</td>
+</tr>
+<tr>
+  <td><strong>Model Portability</strong></td>
+  <td>Works with any Ollama-compatible models</td>
+  <td>SHOULD HAVE</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="nfr-06-scalability">NFR-06: Scalability</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Requirement</th>
+  <th>Description</th>
+  <th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Document Capacity</strong></td>
+  <td>Support 1000+ documents</td>
+  <td>SHOULD HAVE</td>
+</tr>
+<tr>
+  <td><strong>Concurrent Queries</strong></td>
+  <td>Handle 1-5 concurrent queries</td>
+  <td>SHOULD HAVE</td>
+</tr>
+<tr>
+  <td><strong>File Size</strong></td>
+  <td>Support files up to 100MB</td>
+  <td>SHOULD HAVE</td>
+</tr>
+<tr>
+  <td><strong>Knowledge Base Size</strong></td>
+  <td>Support up to 10GB total</td>
+  <td>SHOULD HAVE</td>
+</tr>
+<tr>
+  <td><strong>Folder Depth</strong></td>
+  <td>Support up to 10 nested levels</td>
+  <td>SHOULD HAVE</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="nfr-07-data-privacy-security">NFR-07: Data Privacy &amp; Security</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Requirement</th>
+  <th>Description</th>
+  <th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Local Processing</strong></td>
+  <td>100% local, no external API calls</td>
+  <td>MUST HAVE</td>
+</tr>
+<tr>
+  <td><strong>No Telemetry</strong></td>
+  <td>Zero usage tracking or analytics</td>
+  <td>MUST HAVE</td>
+</tr>
+<tr>
+  <td><strong>Data Isolation</strong></td>
+  <td>Knowledge base isolated to designated folder</td>
+  <td>MUST HAVE</td>
+</tr>
+<tr>
+  <td><strong>Localhost Binding</strong></td>
+  <td>Default bind to 127.0.0.1 only</td>
+  <td>MUST HAVE</td>
+</tr>
+<tr>
+  <td><strong>Secure Deletion</strong></td>
+  <td>Complete data removal on reset</td>
+  <td>MUST HAVE</td>
+</tr>
+</tbody>
+</table>
+
+<hr />
+
+<h2 id="success-metrics">Success Metrics</h2>
+
+<h3 id="user-adoption-metrics">User Adoption Metrics</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Metric</th>
+  <th>Target</th>
+  <th>Measurement Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Time to First Upload</strong></td>
+  <td>&lt;5 minutes from install</td>
+  <td>User testing</td>
+</tr>
+<tr>
+  <td><strong>Successful Uploads</strong></td>
+  <td>&gt;95% success rate</td>
+  <td>System logs</td>
+</tr>
+<tr>
+  <td><strong>Daily Active Users</strong></td>
+  <td>Track usage patterns</td>
+  <td>Analytics (opt-in)</td>
+</tr>
+<tr>
+  <td><strong>User Retention</strong></td>
+  <td>&gt;80% return within 1 week</td>
+  <td>User surveys</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="performance-metrics">Performance Metrics</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Metric</th>
+  <th>Target</th>
+  <th>Measurement Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Query Accuracy</strong></td>
+  <td>&gt;80% relevant answers</td>
+  <td>User feedback</td>
+</tr>
+<tr>
+  <td><strong>Response Time</strong></td>
+  <td>&lt;5 sec average</td>
+  <td>System monitoring</td>
+</tr>
+<tr>
+  <td><strong>Processing Success</strong></td>
+  <td>&gt;95% files processed</td>
+  <td>Error logs</td>
+</tr>
+<tr>
+  <td><strong>System Uptime</strong></td>
+  <td>&gt;99% during sessions</td>
+  <td>Uptime monitoring</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="engagement-metrics">Engagement Metrics</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Metric</th>
+  <th>Target</th>
+  <th>Measurement Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Queries per Session</strong></td>
+  <td>&gt;10 questions</td>
+  <td>Session analytics</td>
+</tr>
+<tr>
+  <td><strong>Documents Uploaded</strong></td>
+  <td>&gt;20 docs per user</td>
+  <td>Usage tracking</td>
+</tr>
+<tr>
+  <td><strong>Feature Usage</strong></td>
+  <td>All features used by &gt;50% users</td>
+  <td>Feature tracking</td>
+</tr>
+<tr>
+  <td><strong>Session Duration</strong></td>
+  <td>&gt;15 minutes average</td>
+  <td>Time tracking</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="quality-metrics">Quality Metrics</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Metric</th>
+  <th>Target</th>
+  <th>Measurement Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>User Satisfaction</strong></td>
+  <td>&gt;4.0/5.0 rating</td>
+  <td>User surveys</td>
+</tr>
+<tr>
+  <td><strong>Answer Quality</strong></td>
+  <td>&gt;80% marked helpful</td>
+  <td>User ratings</td>
+</tr>
+<tr>
+  <td><strong>Bug Reports</strong></td>
+  <td>&lt;5 critical bugs per month</td>
+  <td>Issue tracking</td>
+</tr>
+<tr>
+  <td><strong>Feature Requests</strong></td>
+  <td>Track top 10 requests</td>
+  <td>User feedback</td>
+</tr>
+</tbody>
+</table>
+
+<hr />
+
+<h2 id="future-roadmap">Future Roadmap</h2>
+
+<h3 id="version-20-q1-2026">Version 2.0 (Q1 2026)</h3>
+
+<h4 id="multi-user-support">Multi-User Support</h4>
+
+<ul>
+<li>User authentication and profiles</li>
+<li>Per-user knowledge bases</li>
+<li>Shared knowledge bases with permissions</li>
+<li>Activity logging and audit trails</li>
+</ul>
+
+<h4 id="enhanced-multimodal-capabilities">Enhanced Multimodal Capabilities</h4>
+
+<ul>
+<li>Audio file support (MP3, WAV)</li>
+<li>Video file support (MP4, AVI)</li>
+<li>Speech-to-text for audio transcription</li>
+<li>Video frame analysis and summarization</li>
+</ul>
+
+<h4 id="advanced-search">Advanced Search</h4>
+
+<ul>
+<li>Filters (by file type, date, folder)</li>
+<li>Boolean search operators</li>
+<li>Saved searches</li>
+<li>Search history</li>
+</ul>
+
+<h3 id="version-21-q2-2026">Version 2.1 (Q2 2026)</h3>
+
+<h4 id="collaboration-features">Collaboration Features</h4>
+
+<ul>
+<li>Knowledge base sharing (export/import)</li>
+<li>Collaborative annotations</li>
+<li>Comments on documents</li>
+<li>Real-time collaboration</li>
+</ul>
+
+<h4 id="analytics-dashboard">Analytics Dashboard</h4>
+
+<ul>
+<li>Query analytics (most asked questions)</li>
+<li>Document usage statistics</li>
+<li>Knowledge base health metrics</li>
+<li>User activity reports</li>
+</ul>
+
+<h4 id="mobile-support">Mobile Support</h4>
+
+<ul>
+<li>Responsive mobile UI</li>
+<li>Mobile-optimized chat</li>
+<li>Touch-friendly interactions</li>
+<li>Progressive Web App (PWA)</li>
+</ul>
+
+<h3 id="version-30-q3-2026">Version 3.0 (Q3 2026)</h3>
+
+<h4 id="enterprise-features">Enterprise Features</h4>
+
+<ul>
+<li>LDAP/SSO authentication</li>
+<li>Role-based access control (RBAC)</li>
+<li>Compliance reporting (GDPR, HIPAA)</li>
+<li>Database encryption at rest</li>
+</ul>
+
+<h4 id="advanced-ai-features">Advanced AI Features</h4>
+
+<ul>
+<li>Multi-hop reasoning</li>
+<li>Automatic document summarization</li>
+<li>Question suggestion based on context</li>
+<li>Entity extraction and knowledge graph</li>
+</ul>
+
+<h4 id="integration-apis">Integration &amp; APIs</h4>
+
+<ul>
+<li>REST API for programmatic access</li>
+<li>Webhooks for automation</li>
+<li>Integration with cloud storage (OneDrive, Google Drive)</li>
+<li>Export to common formats (JSON, CSV)</li>
+</ul>
+
+<h3 id="long-term-vision-beyond-2026">Long-Term Vision (Beyond 2026)</h3>
+
+<ul>
+<li><strong>Federated Learning</strong>: Share model improvements without sharing data</li>
+<li><strong>Custom Model Fine-Tuning</strong>: Train on user's specific domain</li>
+<li><strong>Interactive Visualizations</strong>: Knowledge graphs, concept maps</li>
+<li><strong>Smart Recommendations</strong>: Suggest relevant documents proactively</li>
+<li><strong>Cross-Lingual Support</strong>: Multi-language queries and documents</li>
+<li><strong>Voice Interface</strong>: Voice commands and audio responses</li>
+</ul>
+
+<hr />
+
+<h2 id="appendix">Appendix</h2>
+
+<h3 id="a-glossary">A. Glossary</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Term</th>
+  <th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>RAG</strong></td>
+  <td>Retrieval-Augmented Generation: AI technique combining retrieval and generation</td>
+</tr>
+<tr>
+  <td><strong>Vector Database</strong></td>
+  <td>Database optimized for storing and searching high-dimensional vectors (embeddings)</td>
+</tr>
+<tr>
+  <td><strong>Embedding</strong></td>
+  <td>Numerical representation of text that captures semantic meaning</td>
+</tr>
+<tr>
+  <td><strong>Chunk</strong></td>
+  <td>Small, manageable piece of a larger document</td>
+</tr>
+<tr>
+  <td><strong>LLM</strong></td>
+  <td>Large Language Model: AI model trained on text for generation tasks</td>
+</tr>
+<tr>
+  <td><strong>Multimodal</strong></td>
+  <td>Capability to process multiple data types (text, images, etc.)</td>
+</tr>
+<tr>
+  <td><strong>Inference</strong></td>
+  <td>Process of using a trained model to make predictions</td>
+</tr>
+<tr>
+  <td><strong>ChromaDB</strong></td>
+  <td>Open-source vector database</td>
+</tr>
+<tr>
+  <td><strong>Ollama</strong></td>
+  <td>Local LLM runtime for running models on personal devices</td>
+</tr>
+<tr>
+  <td><strong>Streamlit</strong></td>
+  <td>Python framework for building data apps</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="b-file-type-mapping">B. File Type Mapping</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Extension</th>
+  <th>Type</th>
+  <th>Loader</th>
+  <th>Special Processing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>.pdf</code></td>
+  <td>Document</td>
+  <td>PyPDFLoader</td>
+  <td>Header/footer removal</td>
+</tr>
+<tr>
+  <td><code>.docx</code></td>
+  <td>Document</td>
+  <td>Docx2txtLoader</td>
+  <td>Header/footer removal</td>
+</tr>
+<tr>
+  <td><code>.pptx</code></td>
+  <td>Presentation</td>
+  <td>UnstructuredPowerPointLoader</td>
+  <td>Slide-by-slide</td>
+</tr>
+<tr>
+  <td><code>.ppt</code></td>
+  <td>Presentation</td>
+  <td>UnstructuredPowerPointLoader</td>
+  <td>Slide-by-slide</td>
+</tr>
+<tr>
+  <td><code>.xlsx</code></td>
+  <td>Spreadsheet</td>
+  <td>pandas</td>
+  <td>Table summarization, chunking</td>
+</tr>
+<tr>
+  <td><code>.csv</code></td>
+  <td>Data</td>
+  <td>pandas</td>
+  <td>Table summarization, chunking</td>
+</tr>
+<tr>
+  <td><code>.jpg</code></td>
+  <td>Image</td>
+  <td>Pillow</td>
+  <td>AI description generation</td>
+</tr>
+<tr>
+  <td><code>.jpeg</code></td>
+  <td>Image</td>
+  <td>Pillow</td>
+  <td>AI description generation</td>
+</tr>
+<tr>
+  <td><code>.png</code></td>
+  <td>Image</td>
+  <td>Pillow</td>
+  <td>AI description generation</td>
+</tr>
+<tr>
+  <td><code>.gif</code></td>
+  <td>Image</td>
+  <td>Pillow</td>
+  <td>AI description generation</td>
+</tr>
+<tr>
+  <td><code>.webp</code></td>
+  <td>Image</td>
+  <td>Pillow</td>
+  <td>AI description generation</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="c-model-specifications">C. Model Specifications</h3>
+
+<h4 id="llama-32-1b-text-generation">Llama 3.2 1B (Text Generation)</h4>
+
+<ul>
+<li><strong>Size</strong>: 1.3GB</li>
+<li><strong>Parameters</strong>: 1 billion</li>
+<li><strong>Context Window</strong>: 2048 tokens (~1500 words)</li>
+<li><strong>Use Case</strong>: Answer generation</li>
+<li><strong>Hardware Requirements</strong>: 2GB RAM minimum</li>
+</ul>
+
+<h4 id="llava-7b-vision">LLaVA 7B (Vision)</h4>
+
+<ul>
+<li><strong>Size</strong>: 4.7GB</li>
+<li><strong>Parameters</strong>: 7 billion</li>
+<li><strong>Modalities</strong>: Text + Images</li>
+<li><strong>Use Case</strong>: Image description generation</li>
+<li><strong>Hardware Requirements</strong>: 8GB RAM minimum</li>
+</ul>
+
+<h4 id="nomic-embed-text-embeddings">Nomic Embed Text (Embeddings)</h4>
+
+<ul>
+<li><strong>Size</strong>: 274MB</li>
+<li><strong>Dimensions</strong>: 768</li>
+<li><strong>Context Window</strong>: 512 tokens</li>
+<li><strong>Use Case</strong>: Document/query embeddings</li>
+<li><strong>Hardware Requirements</strong>: 1GB RAM minimum</li>
+</ul>
+
+<h3 id="d-environment-variables">D. Environment Variables</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Variable</th>
+  <th>Purpose</th>
+  <th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>OLLAMA_HOST</code></td>
+  <td>Ollama server URL</td>
+  <td><code>http://localhost:11434</code></td>
+</tr>
+<tr>
+  <td><code>STREAMLIT_SERVER_PORT</code></td>
+  <td>Web app port</td>
+  <td><code>8501</code></td>
+</tr>
+<tr>
+  <td><code>STREAMLIT_SERVER_ADDRESS</code></td>
+  <td>Bind address</td>
+  <td><code>localhost</code></td>
+</tr>
+<tr>
+  <td><code>CHROMA_PERSIST_DIR</code></td>
+  <td>Vector DB path</td>
+  <td><code>./chroma_db</code></td>
+</tr>
+<tr>
+  <td><code>KB_DIR</code></td>
+  <td>Knowledge base path</td>
+  <td><code>./knowledge_base</code></td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="e-dependencies-list">E. Dependencies List</h3>
+
+<pre><code>streamlit              # Web framework
+langchain             # LLM orchestration
+langchain-community   # Community integrations
+langchain-ollama      # Ollama integration
+langchain-chroma      # ChromaDB integration
+chromadb              # Vector database
+pypdf                 # PDF processing
+python-docx           # DOCX processing
+openpyxl              # XLSX processing
+python-pptx           # PPTX processing
+Pillow                # Image processing
+pandas                # Data manipulation
+tabulate              # Table formatting
+unstructured          # Advanced parsing
+</code></pre>
+
+<h3 id="f-api-reference-internal">F. API Reference (Internal)</h3>
+
+<h4 id="rag_corepy"><code>rag_core.py</code></h4>
+
+<p><strong>Functions:</strong></p>
+
+<div class="codehilite">
+<pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_and_split_documents</span><span class="p">(</span><span class="n">file_paths</span><span class="p">,</span> <span class="n">progress_callback</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load and split documents into chunks.&quot;&quot;&quot;</span>
+    <span class="c1"># Returns: dict with status, splits, failed, ignored</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">index_documents</span><span class="p">(</span><span class="n">splits</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Index document chunks into vector store.&quot;&quot;&quot;</span>
+    <span class="c1"># Returns: None</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">query_rag</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Query RAG system with natural language.&quot;&quot;&quot;</span>
+    <span class="c1"># Returns: (answer: str, source_docs: List[Document])</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">clear_database</span><span class="p">()</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Delete entire vector database.&quot;&quot;&quot;</span>
+    <span class="c1"># Returns: str (status message)</span>
+</code></pre>
+</div>
+
+<h4 id="image_processingpy"><code>image_processing.py</code></h4>
+
+<p><strong>Functions:</strong></p>
+
+<div class="codehilite">
+<pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">generate_image_description</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span> <span class="n">llm</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate AI description of image.&quot;&quot;&quot;</span>
+    <span class="c1"># Returns: str (description)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">create_image_document</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create searchable document from image.&quot;&quot;&quot;</span>
+    <span class="c1"># Returns: Document</span>
+</code></pre>
+</div>
+
+<h4 id="table_processingpy"><code>table_processing.py</code></h4>
+
+<p><strong>Functions:</strong></p>
+
+<div class="codehilite">
+<pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_documents_from_dataframe</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">chunk_size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Process CSV/XLSX into searchable documents.&quot;&quot;&quot;</span>
+    <span class="c1"># Returns: List[Document] (summary + chunks)</span>
+</code></pre>
+</div>
+
+<h3 id="g-command-reference">G. Command Reference</h3>
+
+<h4 id="installation-commands">Installation Commands</h4>
+
+<div class="codehilite">
+<pre><span></span><code><span class="c"># Create virtual environment</span>
+<span class="n">python</span> <span class="n">-m</span> <span class="n">venv</span> <span class="p">.</span><span class="n">venv</span>
+
+<span class="c"># Activate virtual environment</span>
+<span class="p">.\.</span><span class="n">venv</span><span class="p">\</span><span class="n">Scripts</span><span class="p">\</span><span class="n">Activate</span><span class="p">.</span><span class="n">ps1</span>
+
+<span class="c"># Install dependencies</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">-r</span> <span class="n">requirements</span><span class="p">.</span><span class="n">txt</span>
+
+<span class="c"># Pull Ollama models</span>
+<span class="n">ollama</span> <span class="n">pull</span> <span class="n">llama3</span><span class="p">.</span><span class="n">2</span><span class="p">:</span><span class="n">1b</span>
+<span class="n">ollama</span> <span class="n">pull</span> <span class="n">llava</span><span class="p">:</span><span class="n">7b</span>
+<span class="n">ollama</span> <span class="n">pull</span> <span class="n">nomic-embed-text</span>
+</code></pre>
+</div>
+
+<h4 id="run-commands">Run Commands</h4>
+
+<div class="codehilite">
+<pre><span></span><code><span class="c"># Start Ollama (if not running)</span>
+<span class="n">ollama</span> <span class="n">serve</span>
+
+<span class="c"># Run application (default port 8501)</span>
+<span class="n">streamlit</span> <span class="n">run</span> <span class="n">app</span><span class="p">.</span><span class="n">py</span>
+
+<span class="c"># Run on custom port</span>
+<span class="n">streamlit</span> <span class="n">run</span> <span class="n">app</span><span class="p">.</span><span class="n">py</span> <span class="p">-</span><span class="n">-server</span><span class="p">.</span><span class="n">port</span> <span class="n">8055</span>
+
+<span class="c"># Run with network access</span>
+<span class="n">streamlit</span> <span class="n">run</span> <span class="n">app</span><span class="p">.</span><span class="n">py</span> <span class="p">-</span><span class="n">-server</span><span class="p">.</span><span class="n">address</span> <span class="n">0</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">0</span>
+</code></pre>
+</div>
+
+<h4 id="testing-commands">Testing Commands</h4>
+
+<div class="codehilite">
+<pre><span></span><code><span class="c"># Run tests</span>
+<span class="n">python</span> <span class="n">test_multimodal</span><span class="p">.</span><span class="n">py</span>
+
+<span class="c"># Check Ollama models</span>
+<span class="n">ollama</span> <span class="n">list</span>
+
+<span class="c"># Check Ollama status</span>
+<span class="n">ollama</span> <span class="nb">ps</span>
+</code></pre>
+</div>
+
+<h3 id="h-troubleshooting-matrix">H. Troubleshooting Matrix</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Issue</th>
+  <th>Possible Cause</th>
+  <th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Port already in use</td>
+  <td>Streamlit running</td>
+  <td>Kill process or use different port</td>
+</tr>
+<tr>
+  <td>Ollama connection error</td>
+  <td>Ollama not running</td>
+  <td>Run <code>ollama serve</code></td>
+</tr>
+<tr>
+  <td>Model not found</td>
+  <td>Model not pulled</td>
+  <td>Run <code>ollama pull &lt;model_name&gt;</code></td>
+</tr>
+<tr>
+  <td>Out of memory</td>
+  <td>Large model + small RAM</td>
+  <td>Use smaller model or increase RAM</td>
+</tr>
+<tr>
+  <td>Slow processing</td>
+  <td>CPU-only inference</td>
+  <td>Use GPU if available</td>
+</tr>
+<tr>
+  <td>Import errors</td>
+  <td>Dependencies not installed</td>
+  <td>Run <code>pip install -r requirements.txt</code></td>
+</tr>
+<tr>
+  <td>File processing fails</td>
+  <td>Unsupported format</td>
+  <td>Check file extension</td>
+</tr>
+<tr>
+  <td>ChromaDB error</td>
+  <td>Corrupted database</td>
+  <td>Delete <code>chroma_db/</code> folder</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="i-frequently-asked-questions">I. Frequently Asked Questions</h3>
+
+<p><strong>Q: Can I use this with cloud LLMs like GPT-4?</strong><br />
+A: Not currently. The system is designed for local Ollama models. Cloud integration could be added in future versions.</p>
+
+<p><strong>Q: How much does it cost to run?</strong><br />
+A: Free! All models run locally. No API costs. Only electricity for your computer.</p>
+
+<p><strong>Q: Can I use custom models?</strong><br />
+A: Yes! Edit <code>rag_core.py</code> and change the model names to any Ollama-compatible models.</p>
+
+<p><strong>Q: Is my data secure?</strong><br />
+A: Yes. All processing is 100% local. No data leaves your machine.</p>
+
+<p><strong>Q: How many documents can I store?</strong><br />
+A: ChromaDB handles ~100K chunks efficiently. For most users, this means 1000-5000 documents.</p>
+
+<p><strong>Q: Can I deploy this for my class?</strong><br />
+A: Yes! Each student would run their own instance. See deployment guide for details.</p>
+
+<p><strong>Q: Does it work offline?</strong><br />
+A: Yes, completely! No internet required after installation.</p>
+
+<p><strong>Q: Can I export my knowledge base?</strong><br />
+A: Currently no built-in export. The <code>knowledge_base/</code> folder contains all files. Future versions will add export features.</p>
+
+<hr />
+
+<h2 id="document-history">Document History</h2>
+
+<table>
+<thead>
+<tr>
+  <th>Version</th>
+  <th>Date</th>
+  <th>Author</th>
+  <th>Changes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1.0</td>
+  <td>2025-11-28</td>
+  <td>Product Team</td>
+  <td>Initial PRD creation</td>
+</tr>
+</tbody>
+</table>
+
+<hr />
+
+<p><strong>End of PRD Document</strong></p>
+
+</body>
+</html>
